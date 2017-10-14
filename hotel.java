@@ -5,10 +5,13 @@ public class hotel {
 public static void main(String[] args) throws Exception {
 	Hotel hotel = new Hotel();
 	hotel.rooms(5, 2);
-	hotel.showRooms("low");
-	hotel.searchGuest("guests.dat", "sven");
-	hotel.addGuest("guests.dat", "Bobby olsen", 211);
+	// hotel.showRooms("low");
+	hotel.addGuest("guests.dat", "ass", 202);
 	hotel.showGuests("guests.dat");
+	hotel.searchGuest("guests.dat", "lolly");
+	ArrayList<String> hold = hotel.searchGuest("guests.dat", "lolly");
+	for (String i : hold) System.out.printf(i);
+	System.out.print(hotel.searchGuest("guests.dat", "lolly"));
 }
 
 static class Hotel {
@@ -51,7 +54,7 @@ public void showGuests(String file) throws FileNotFoundException {
 	}
 }
 
-public boolean searchGuest(String file, String name) throws Exception {
+public ArrayList<String> searchGuest(String file, String name) throws Exception {
 	Scanner scanner = new Scanner(new File(file));
 	ArrayList<String> found = new ArrayList<String>();
 
@@ -62,17 +65,18 @@ public boolean searchGuest(String file, String name) throws Exception {
 		}
 	}
 	if (found.size() > 0) {
-		for (String i : found) System.out.printf("found %s \n", i);
-		return true;
+		// for (String i : found) System.out.printf("found %s \n", i);
+		return found;
 	} else {
-		System.out.print("Didn't find anyone");
-		return false;
+		System.out.println("Didn't find anyone");
+		return found;
 	}
 }
 public void addGuest(String file, String name, int room) throws Exception {
-	if (!searchGuest(file, name)) {
+	// boolean searchGuest(file,name)
+	if (searchGuest(file, name) != null) {
 		FileWriter writer = new FileWriter(new File(file), true);
-		writer.write(name + " " + room);
+		writer.write(name + " " + room + "\n");
 		writer.flush();
 		writer.close();
 	} else System.out.println("Guest already checked in");
