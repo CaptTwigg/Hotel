@@ -6,14 +6,16 @@ public static void main(String[] args) throws Exception {
 	Hotel hotel = new Hotel("guests.dat");
 
 	showRooms("low", hotel.rooms(5, 2));
-	addGuest(hotel, "Bob Ostrid", 202);
+	addGuest(hotel, "Oskar Ostrid", 202);
 	showGuests("guests.dat");
 	searchGuest(hotel, "bob");
 }
 
 public static void addGuest(Hotel hotel, String name, int room) throws Exception {
-	if (hotel.searchGuest(name).isEmpty()) hotel.addGuest(name, room);
-	else System.out.println("Guest already checked in");
+	if (hotel.searchGuest(name).isEmpty()) {
+		System.out.printf("Guest added: %s in room %d \n", name, room);
+		hotel.addGuest(name, room);
+	}else System.out.println("Guest already checked in");
 }
 
 public static void searchGuest(Hotel hotel, String name) throws Exception {
