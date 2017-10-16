@@ -5,10 +5,12 @@ public class hotel {
 public static void main(String[] args) throws Exception {
 	Hotel hotel = new Hotel("guests.dat");
 
-	showRooms("low", hotel.rooms(5, 2));
-	addGuest(hotel, "Oskar Ostrid", 202);
+	// showRooms("low", hotel.rooms(5, 2));
+	// addGuest(hotel, "Oskar Ostrid", 202);
+	// searchGuest(hotel, "ulla");
 	showGuests("guests.dat");
-	searchGuest(hotel, "bob");
+	System.out.print(hotel.removeGuest("bob marly"));
+	showGuests("guests.dat");
 }
 
 public static void addGuest(Hotel hotel, String name, int room) throws Exception {
@@ -89,6 +91,28 @@ public void addGuest(String name, int room) throws Exception {
 	writer.write(name + " " + room + "\n");
 	writer.flush();
 	writer.close();
+}
+
+public String removeGuest(String name) throws Exception {
+	Scanner scanner = new Scanner(new File(file));
+	ArrayList<String> holder = new ArrayList<String>();
+	ArrayList<String> holder2 = searchGuest(name);
+	if (searchGuest(name).size() > 1) return "More than one person found, be more precise.\n";
+	if (searchGuest(name).size() == 0) return "Guest not found. \n";
+
+	while (scanner.hasNextLine()) holder.add(scanner.nextLine());
+
+	FileWriter writer = new FileWriter(new File(file), false);
+	for (int i = 0; i < holder.size(); i++) {
+		if (holder.get(i).equals(holder2.get(0))) holder.remove(i);
+	}
+	for (int i = 0; i < holder.size(); i++) {
+		writer.write(holder.get(i) + "\n");
+		writer.flush();
+	}
+	writer.close();
+
+	return String.format("Guest %s removed \n", name);
 }
 }
 }
