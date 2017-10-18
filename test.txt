@@ -1,0 +1,5 @@
+[Name: bob0, room: 22, keys: 1
+, Name: bob1, room: 22, keys: 1 
+, Name: bob3, room: 22, keys: 1
+, Name: bob4, room: 22, keys: 1
+]
