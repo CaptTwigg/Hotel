@@ -1,5 +1,4 @@
-[Name: bob0, room: 22, keys: 1
-, Name: bob1, room: 22, keys: 1 
-, Name: bob3, room: 22, keys: 1
-, Name: bob4, room: 22, keys: 1
-]
+bob0 : 22 : 1
+bob1 : 22 : 1
+bob3 : 22 : 1
+bob4 : 22 : 1

@@ -3,7 +3,6 @@ import java.io.*;
 
 public class hotel2 {
 public static void main(String[] args) throws Exception {
-	PrintStream print = new PrintStream(new File("test.txt"));
 	ArrayList<Guest> guestArray = new ArrayList<>();
 	// Guest guests = new Guest();
 
@@ -21,10 +20,38 @@ public static void main(String[] args) throws Exception {
 		System.out.print(i.toString());
 	}
 	System.out.println();
-
+	saveToFile(guestArray);
 	// System.out.print(Arrays.toString(guestArray));
-	print.println(guestArray.toString());
+	// print.append(guestArray.toString());
 	// System.out.print(guests.name);
+}
+public static void saveToFile(ArrayList<Guest> guestArray) throws FileNotFoundException {
+	String format;
+	PrintStream print = new PrintStream(new File("test.txt"));
+	for (int i = 0; i < guestArray.size(); i++) {
+		print.append(guestArray.get(i).toString());
+	}
+
+	// return String.format("Name: %s, room: %d, keys: %d\n", this.name, this.room, this.keys);
+}
+
+static class Guest {
+private String name;
+private int room;
+private int keys;
+
+public Guest(){
+}
+
+public Guest(String name, int room, int keys){
+	this.name = name;
+	this.room = room;
+	this.keys = keys;
+}
+
+public String toString(){
+	return String.format("%s : %d : %d\n", this.name, this.room, this.keys);
+}
 }
 }
 

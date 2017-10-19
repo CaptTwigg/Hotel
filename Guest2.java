@@ -11,6 +11,7 @@ public Guest(String name, int room, int keys){
 	this.room = room;
 	this.keys = keys;
 }
+
 public String toString(){
 	return String.format("Name: %s, room: %d, keys: %d \n", this.name, this.room, this.keys);
 }
