@@ -3,55 +3,55 @@ import java.io.*;
 
 public class hotel {
 public static void main(String[] args) throws Exception {
-	Hotel hotel = new Hotel("guests.dat");
+  Hotel hotel = new Hotel("guests.dat");
 
-	// showRooms("low", hotel.rooms(5, 2));
-	// addGuest(hotel, "Oskar Ostrid", 202);
-	// searchGuest(hotel, "ulla");
-	showGuests("guests.dat");
-	System.out.print(hotel.removeGuest("bob marly"));
-	showGuests("guests.dat");
+  // showRooms("low", hotel.rooms(5, 2));
+  // addGuest(hotel, "Oskar Ostrid", 202);
+  // searchGuest(hotel, "ulla");
+  showGuests("guests.dat");
+  System.out.print(hotel.removeGuest("bob marly"));
+  showGuests("guests.dat");
 }
 
 public static void addGuest(Hotel hotel, String name, int room) throws Exception {
-	if (hotel.searchGuest(name).isEmpty()) {
-		System.out.printf("Guest added: %s in room %d \n", name, room);
-		hotel.addGuest(name, room);
-	}else System.out.println("Guest already checked in");
+  if (hotel.searchGuest(name).isEmpty()) {
+    System.out.printf("Guest added: %s in room %d \n", name, room);
+    hotel.addGuest(name, room);
+  }else System.out.println("Guest already checked in");
 }
 
 public static void searchGuest(Hotel hotel, String name) throws Exception {
-	if (hotel.searchGuest(name).isEmpty()) System.out.println("Didn't find anyone");
-	else for (String i : hotel.searchGuest(name)) System.out.printf("Found: %s \n", i);
+  if (hotel.searchGuest(name).isEmpty()) System.out.println("Didn't find anyone");
+  else for (String i : hotel.searchGuest(name)) System.out.printf("Found: %s \n", i);
 }
 
 public static void showGuests(String file) throws FileNotFoundException {
-	Scanner scanner = new Scanner(new File(file));
-	for (int i = 0; scanner.hasNextLine(); i++) {
-		System.out.printf("Guest number %d | %s \n", i + 1, scanner.nextLine());
-	}
+  Scanner scanner = new Scanner(new File(file));
+  for (int i = 0; scanner.hasNextLine(); i++) {
+    System.out.printf("Guest number %d | %s \n", i + 1, scanner.nextLine());
+  }
 }
 
 public static void showRooms(String sort, int[][] roomFloor){
-	if (!sort.toLowerCase().equals("low") && !sort.toLowerCase().equals("high")) {
-		System.out.println("Not a valid command, must be low or high");
-	}
-	if (sort.toLowerCase().equals("high")) {
-		for (int i = 0; i < roomFloor.length; i++) {
-			for (int j = 0; j < roomFloor[0].length; j++) {
-				System.out.printf("%-4d", roomFloor[i][j]);
-			}
-			System.out.println();
-		}
-	}
-	if (sort.toLowerCase().equals("low")) {
-		for (int i = roomFloor.length - 1; i >= 0; i--) {
-			for (int j = 0; j < roomFloor[0].length; j++) {
-				System.out.printf("%-4d", roomFloor[i][j]);
-			}
-			System.out.println();
-		}
-	}
+  if (!sort.toLowerCase().equals("low") && !sort.toLowerCase().equals("high")) {
+    System.out.println("Not a valid command, must be low or high");
+  }
+  if (sort.toLowerCase().equals("high")) {
+    for (int i = 0; i < roomFloor.length; i++) {
+      for (int j = 0; j < roomFloor[0].length; j++) {
+        System.out.printf("%-4d", roomFloor[i][j]);
+      }
+      System.out.println();
+    }
+  }
+  if (sort.toLowerCase().equals("low")) {
+    for (int i = roomFloor.length - 1; i >= 0; i--) {
+      for (int j = 0; j < roomFloor[0].length; j++) {
+        System.out.printf("%-4d", roomFloor[i][j]);
+      }
+      System.out.println();
+    }
+  }
 }
 
 // starting class hotel
@@ -59,60 +59,60 @@ static class Hotel {
 private String file;
 
 public Hotel(String file){
-	this.file = file;
+  this.file = file;
 }
 
 public int[][] rooms(int rooms, int floors){
-	int[][] roomFloor = new int[floors][rooms];
-	for (int i = 0; i < roomFloor.length; i++) {
-		for (int j = 0; j < roomFloor[0].length; j++) {
-			roomFloor[i][j] = (i + 1) * 100 + j;
-		}
-	}
-	return roomFloor;
+  int[][] roomFloor = new int[floors][rooms];
+  for (int i = 0; i < roomFloor.length; i++) {
+    for (int j = 0; j < roomFloor[0].length; j++) {
+      roomFloor[i][j] = (i + 1) * 100 + j;
+    }
+  }
+  return roomFloor;
 }
 
 // Return array of found guests or empty array if not
 public ArrayList<String> searchGuest(String name) throws Exception {
-	Scanner scanner = new Scanner(new File(file));
-	ArrayList<String> found = new ArrayList<String>();
+  Scanner scanner = new Scanner(new File(file));
+  ArrayList<String> found = new ArrayList<String>();
 
-	while (scanner.hasNextLine()) {
-		final String lineFromFile = scanner.nextLine();
-		if (lineFromFile.toLowerCase().contains(name.toLowerCase())) {
-			found.add(lineFromFile);
-		}
-	}
-	return found;
+  while (scanner.hasNextLine()) {
+    final String lineFromFile = scanner.nextLine();
+    if (lineFromFile.toLowerCase().contains(name.toLowerCase())) {
+      found.add(lineFromFile);
+    }
+  }
+  return found;
 }
 
 public void addGuest(String name, int room) throws Exception {
-	FileWriter writer = new FileWriter(new File(file), true);
-	writer.write(name + " " + room + "\n");
-	writer.flush();
-	writer.close();
+  FileWriter writer = new FileWriter(new File(file), true);
+  writer.write(name + " " + room + "\n");
+  writer.flush();
+  writer.close();
 }
 
 public String removeGuest(String name) throws Exception {
-	Scanner scanner = new Scanner(new File(file));
-	ArrayList<String> holder = new ArrayList<String>();
-	ArrayList<String> holder2 = searchGuest(name);
-	if (searchGuest(name).size() > 1) return "More than one person found, be more precise.\n";
-	if (searchGuest(name).size() == 0) return "Guest not found. \n";
+  Scanner scanner = new Scanner(new File(file));
+  ArrayList<String> holder = new ArrayList<String>();
+  ArrayList<String> holder2 = searchGuest(name);
+  if (searchGuest(name).size() > 1) return "More than one person found, be more precise.\n";
+  if (searchGuest(name).size() == 0) return "Guest not found. \n";
 
-	while (scanner.hasNextLine()) holder.add(scanner.nextLine());
+  while (scanner.hasNextLine()) holder.add(scanner.nextLine());
 
-	FileWriter writer = new FileWriter(new File(file), false);
-	for (int i = 0; i < holder.size(); i++) {
-		if (holder.get(i).equals(holder2.get(0))) holder.remove(i);
-	}
-	for (int i = 0; i < holder.size(); i++) {
-		writer.write(holder.get(i) + "\n");
-		writer.flush();
-	}
-	writer.close();
+  FileWriter writer = new FileWriter(new File(file), false);
+  for (int i = 0; i < holder.size(); i++) {
+    if (holder.get(i).equals(holder2.get(0))) holder.remove(i);
+  }
+  for (int i = 0; i < holder.size(); i++) {
+    writer.write(holder.get(i) + "\n");
+    writer.flush();
+  }
+  writer.close();
 
-	return String.format("Guest %s removed \n", name);
+  return String.format("Guest %s removed \n", name);
 }
 }
 }
